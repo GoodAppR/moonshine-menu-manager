@@ -45,6 +45,10 @@ final class MenuManagerServiceProvider extends ServiceProvider
         ], 'moonshine-menu-manager-config');
 
         $this->app->booted(function (): void {
+            // Fallback: ensure page is in Core (fixes 404 when config was cached or load order differs)
+            if (function_exists('moonshine') && ! moonshine()->getPages()->findByUri('menu-manager-page')) {
+                moonshine()->pages([MenuManagerPage::class]);
+            }
             if (function_exists('moonshineAssets')) {
                 $cssPath = __DIR__ . '/../../resources/css/menu-manager.css';
                 if (is_file($cssPath)) {

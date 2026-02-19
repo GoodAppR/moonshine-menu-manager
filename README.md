@@ -90,6 +90,15 @@ final class MoonShineLayout extends AppLayout
 
 The package auto-registers the menu manager page. A gear/grid icon appears in the sidebar — clicking it opens the manager.
 
+**Если страница даёт 404**, добавьте в `config/moonshine.php` в массив `pages`:
+
+```php
+'pages' => [
+    // ...
+    'menu-manager' => \MoonShine\CustomMenuManager\Pages\MenuManagerPage::class,
+],
+```
+
 ### 2. Clear caches after installation
 
 ```bash
