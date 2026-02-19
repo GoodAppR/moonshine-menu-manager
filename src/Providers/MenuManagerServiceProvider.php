@@ -21,6 +21,11 @@ final class MenuManagerServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/moonshine_menu_manager.php',
             'moonshine_menu_manager'
         );
+
+        // Register page in moonshine.pages for config (before MoonShine Core boots)
+        $pages = config('moonshine.pages', []);
+        $pages['menu-manager'] = \MoonShine\CustomMenuManager\Pages\MenuManagerPage::class;
+        config(['moonshine.pages' => $pages]);
     }
 
     public function boot(): void
@@ -28,15 +33,14 @@ final class MenuManagerServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'moonshine-menu-manager');
 
-        config([
-            'moonshine.pages.menu-manager' => \MoonShine\CustomMenuManager\Pages\MenuManagerPage::class,
-        ]);
-
         $this->publishes([
             __DIR__ . '/../../config/moonshine_menu_manager.php' => config_path('moonshine_menu_manager.php'),
         ], 'moonshine-menu-manager-config');
 
         $this->app->booted(function (): void {
+            if (function_exists('moonshine')) {
+                moonshine()->pages([\MoonShine\CustomMenuManager\Pages\MenuManagerPage::class]);
+            }
             if (function_exists('moonshineAssets')) {
                 $cssPath = __DIR__ . '/../../resources/css/menu-manager.css';
                 if (is_file($cssPath)) {

@@ -22,34 +22,8 @@ Drag-and-drop menu manager for [MoonShine 4.x](https://moonshine-laravel.com/) a
 
 ## Installation
 
-### Via Composer (Packagist)
-
 ```bash
 composer require goodappr/moonshine-menu-manager
-```
-
-### Via path repository (local development)
-
-Add to your project's `composer.json`:
-
-```json
-{
-    "repositories": [
-        {
-            "type": "path",
-            "url": "packages/moonshine-menu-manager",
-            "options": {
-                "symlink": true
-            }
-        }
-    ]
-}
-```
-
-Then install:
-
-```bash
-composer require goodappr/moonshine-menu-manager:*
 ```
 
 ### Run migrations
@@ -114,24 +88,9 @@ final class MoonShineLayout extends AppLayout
 }
 ```
 
-The `CustomMenuManager` trait automatically:
-- Adds the menu manager activation button to the sidebar and topbar
-- Shows/hides topbar and bottom bar based on whether items exist in those zones
-- Reads menu configuration from the database and renders items in the correct zones
+The package auto-registers the menu manager page. A gear/grid icon appears in the sidebar — clicking it opens the manager.
 
-### 2. Register the page (optional)
-
-The package auto-registers via Laravel's package discovery. The menu manager page is accessible at:
-
-```
-/admin/page/menu-manager-page
-```
-
-(where `/admin` is your MoonShine prefix)
-
-A gear/grid icon button appears in the sidebar header — clicking it opens the menu manager page.
-
-### 3. Clear caches after installation
+### 2. Clear caches after installation
 
 ```bash
 php artisan config:clear
@@ -203,36 +162,6 @@ moonshine-menu-manager/
 | `MenuManagerPage` | Admin page with the visual menu editor |
 | `MenuManagerComponent` | MoonShine component that renders the editor UI |
 | `CustomMenuManager` | Trait that integrates the manager into your layout |
-
-## Troubleshooting
-
-### Menu items don't appear after saving
-
-Clear Laravel caches:
-
-```bash
-php artisan config:clear
-php artisan view:clear
-php artisan cache:clear
-```
-
-### Drag-and-drop not working
-
-- Ensure SortableJS is loaded (the package includes it via CDN)
-- Check browser console for JavaScript errors
-- Verify that the menu manager page loads without errors
-
-### Items from other packages not showing
-
-The package discovers items via `MenuManagerContract::all()`. Items registered through MoonShine's standard menu system (in your layout's `menu()` method or via `MenuFillerContract`) will be discovered automatically.
-
-### Bottom bar not visible
-
-The bottom bar only appears when:
-1. Items are assigned to the `bottom_bar` zone, OR
-2. Mobile mode is active
-
-Use the "Показывать всегда" checkbox to force the bottom bar to always be visible.
 
 ## License
 
