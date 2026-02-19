@@ -1,0 +1,67 @@
+/* ── Sortable DnD ─────────────────────────────────────────── */
+
+.sortable-ghost {
+    opacity: 0.4;
+    background-color: rgba(var(--primary-rgb), 0.1);
+    border-radius: 0.5rem;
+}
+
+.sortable-drag {
+    cursor: grabbing !important;
+    opacity: 0.9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark .sortable-ghost {
+    background-color: rgba(var(--primary-rgb), 0.2);
+}
+
+/* ── Dotted separator between label and controls ─────────── */
+
+.menu-manager-page .menu-item-dots {
+    flex: 1 1 auto;
+    min-width: 24px;
+    height: 1px;
+    align-self: center;
+    margin: 0 0.5rem;
+    background: repeating-linear-gradient(
+        to right,
+        currentColor 0,
+        currentColor 3px,
+        transparent 3px,
+        transparent 8px
+    );
+    opacity: 0.5;
+}
+
+/* ── Grab cursor ─────────────────────────────────────────── */
+
+.menu-manager-page .cursor-grab:active {
+    cursor: grabbing;
+}
+
+/* ── Group items sortable container ──────────────────────── */
+
+.menu-manager-page .group-items-sortable {
+    list-style: none;
+    min-height: 28px;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+    .menu-manager-page .zone-list {
+        min-height: 80px;
+    }
+
+    .menu-manager-page [class*="select-bordered"] {
+        min-width: 0;
+    }
+}
+
+/* ── Activation button ───────────────────────────────────── */
+
+a.theme-switcher.btn-fit {
+    cursor: pointer;
+    text-decoration: none;
+}

@@ -1,0 +1,2 @@
+# Excluded from dist archives
+/.gitattributes    export-ignore
